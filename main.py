@@ -1,19 +1,28 @@
 """
     Kivy app prototype.
 """
-
+from kivy.uix.widget import Widget
 from kivymd.app import MDApp
 from kivy.core.window import Window
+
+from modules.cache import Cache
 from modules.container import Container
 
 
 class MainApp(MDApp):
-    def build(self):
+    def __init__(self, **kwargs):
+        self._cache = Cache()
+        super().__init__(**kwargs)
+
+    def build(self) -> Widget:
         Window.softinput_mode = 'pan'
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Red"
 
-        return Container()
+        return Container(self._cache)
+
+    def on_stop(self) -> None:
+        self._cache.save_session()
 
 
 def main():

@@ -3,11 +3,13 @@ from kivymd.uix.gridlayout import MDGridLayout
 import python_weather
 import asyncio
 import threading
+from modules.cache import Cache
 
 
 class Container(MDGridLayout):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, cache: Cache, *args, **kwargs):
         self._forecast: Forecast = None
+        self._cache = cache
         super().__init__(*args, **kwargs)
 
     def set_weather(self):
@@ -24,7 +26,7 @@ class Container(MDGridLayout):
                 user_input = self.input_field.text
                 user_input = user_input if user_input != '' else '0'
                 weather = await client.get(user_input)
-                forecast = Forecast(weather)
+                forecast = Forecast(weather, self._cache)
                 self._forecast = forecast
                 self._update_weather()
 

@@ -1,5 +1,6 @@
 from python_weather.client import Weather
 from modules.exceptions import (InvalidTemperatureFormatException)
+from modules.cache import Cache
 
 
 def fahrenheit_to_celsius(deg: int) -> int:
@@ -11,10 +12,10 @@ def celsius_to_fahrenheit(deg: int) -> int:
 
 
 class Forecast:
-    def __init__(self, forecast: Weather):
+    def __init__(self, forecast: Weather, cache: Cache):
         self._is_valid = False
+        self._cache = cache
         self._check_if_valid(forecast)
-        self._temperature_mode = 'F'  # or 'C'
 
         self.temperature = forecast.current.temperature
         self.humidity = forecast.current.humidity
@@ -23,16 +24,39 @@ class Forecast:
         self.pressure = forecast.current.pressure
         self.feels_like = forecast.current.feels_like
 
-    def _check_if_valid(self, forecast: Weather):
+        # TEMP_MODE is 'F' or 'C'
+        try:
+            self._temperature_mode = self._cache.get_value('TEMP_MODE')
+        except KeyError:
+            self._temperature_mode = 'F'
+            self._cache.set_value('TEMP_MODE', 'F')
+
+        if forecast.format != self._temperature_mode:
+            self._switch_temperature_mode()
+            self._convert_switched_temperature()
+            self._switch_temperature_mode()
+
+    def _check_if_valid(self, forecast: Weather) -> None:
         self._is_valid = bool(forecast.location)
 
-    def _convert_switched_temperature(self):
+    def _convert_switched_temperature(self) -> None:
         if self._temperature_mode == 'F':
             self.temperature = fahrenheit_to_celsius(self.temperature)
             self.feels_like = fahrenheit_to_celsius(self.feels_like)
         elif self._temperature_mode == 'C':
             self.temperature = celsius_to_fahrenheit(self.temperature)
             self.feels_like = celsius_to_fahrenheit(self.feels_like)
+        else:
+            raise InvalidTemperatureFormatException(
+                "Temperature format can be only 'C' or 'F'!")
+
+    def _switch_temperature_mode(self) -> None:
+        if self._temperature_mode == 'F':
+            self._temperature_mode = 'C'
+            self._cache.set_value('TEMP_MODE', 'C')
+        elif self._temperature_mode == 'C':
+            self._temperature_mode = 'F'
+            self._cache.set_value('TEMP_MODE', 'F')
         else:
             raise InvalidTemperatureFormatException(
                 "Temperature format can be only 'C' or 'F'!")
@@ -48,12 +72,6 @@ class Forecast:
             f"Wind Direction: {self.wind_direction}\n" +\
             f"Pressure: {self.pressure}"
 
-    def switch_temperature_mode(self):
+    def switch_temperature_mode(self) -> None:
         self._convert_switched_temperature()
-        if self._temperature_mode == 'F':
-            self._temperature_mode = 'C'
-        elif self._temperature_mode == 'C':
-            self._temperature_mode = 'F'
-        else:
-            raise InvalidTemperatureFormatException(
-                "Temperature format can be only 'C' or 'F'!")
+        self._switch_temperature_mode()

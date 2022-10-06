@@ -6,3 +6,4 @@ __pycache__/
 bin/
 kivy_venv/
 resources/
+cache.json

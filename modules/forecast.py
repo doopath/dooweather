@@ -1,5 +1,5 @@
 from python_weather.client import Weather
-from exceptions import (InvalidTemperatureFormatException)
+from modules.exceptions import (InvalidTemperatureFormatException)
 
 
 def fahrenheit_to_celsius(deg: int) -> int:
@@ -10,7 +10,7 @@ def celsius_to_fahrenheit(deg: int) -> int:
     return round(deg * 9 / 5 + 32)
 
 
-class Forecast():
+class Forecast:
     def __init__(self, forecast: Weather):
         self._is_valid = False
         self._check_if_valid(forecast)

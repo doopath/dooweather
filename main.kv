@@ -1,0 +1,68 @@
+#:kivy 2.1.0
+
+<Container>:
+    rows: 3
+    padding: 50
+    spacing: 20
+
+    weather_info_label: weather_info
+    input_field: input
+
+    MDGridLayout:
+        rows: 1
+        cols: 2
+        size_hint_y: 0.8
+        alignment: 'horizontal'
+        spacing: 15
+
+        MDStackLayout:
+            halign: 'left'
+            alignment: 'vertical'
+            size_hint_y: 0.8
+            spacing: 30
+
+            MDLabel:
+                size_hint_y: 0.1
+                markup: True
+                text: '[b]Forecast (now):[/b]'
+                font_size: '24sp'
+                valign: 'bottom'
+
+            MDLabel:
+                id: weather_info
+                size_hint_y: 0.3
+                font_size: '18sp'
+                text: "You didn't enter the city yet."
+
+        AnchorLayout:
+            size_hint: 0.2, 1
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            MDRoundFlatButton:
+                on_release:
+                    root.temperature_switch()
+                anchor_y: 'center'
+                anchor_x: 'center'
+                text: 'F/C'
+                font_size: '20sp'
+                text_color: 'white'
+                line_width: 1.5
+
+
+    MDTextField:
+        id: input
+        size_hint_x: 1
+        hint_text: 'Enter your city'
+        text_color_focus: 'white'
+
+
+    MDRoundFlatButton:
+        size_hint_x: 1
+        text: 'Get weather'
+        font_size: '20sp'
+        text_color: 'white'
+        line_width: 1.5
+
+        on_release:
+            root.set_weather()

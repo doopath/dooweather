@@ -38,8 +38,8 @@ class Forecast:
         self._is_valid = False
         self._cache = cache
         self._check_if_valid(forecast)
-        self._city = city
 
+        self.city = city
         self.temperature = forecast.current.temperature
         self.humidity = forecast.current.humidity
         self.wind_speed = forecast.current.wind_speed
@@ -95,11 +95,12 @@ class Forecast:
 
         cities: list = self._cache.get_value('CITIES')
 
-        if self._city not in cities:
-            cities.append(self._city)
+        if self.city not in cities:
+            cities.append(self.city)
             self._cache.set_value('CITIES', cities)
 
-        return f"Temperature: {self.temperature}{self._temperature_mode}" +\
+        return f"City: {self.city}\n" +\
+            f"Temperature: {self.temperature}{self._temperature_mode}" +\
             f" (Feels like {self.feels_like}{self._temperature_mode})\n" +\
             f"Humidity: {self.humidity}%\n" +\
             f"Wind Speed: {self.wind_speed} km/h\n" +\

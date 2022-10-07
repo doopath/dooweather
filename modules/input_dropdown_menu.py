@@ -2,9 +2,8 @@
     Dropdown menu for an input field.
 """
 from typing import Any, Callable
-
+from kivy.core.window import Window
 from kivymd.uix.menu import MDDropdownMenu
-
 from modules.cache import Cache
 
 
@@ -17,7 +16,7 @@ class InputDropdownMenu(MDDropdownMenu):
         self.items = []
         self.position = 'center'
         self.width_mult = 4
-        self.max_height = 200
+        self.max_height = Window.size[1] / 3 // 50 * 50
 
     def _get_cached_cities(self) -> list[str]:
         try:

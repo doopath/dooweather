@@ -11,41 +11,50 @@
     choose_city_button: choose_city
 
     MDGridLayout:
-        rows: 1
-        cols: 2
-        alignment: 'horizontal'
-        spacing: 20
+        rows: 2
+        cols: 1
+        spacing: 30
+        padding: [0, 20]
+        size_hint_y: 1
 
         MDCard:
             radius: dp(20)
-            padding: 40
+            size_hint: 1, None
+            padding: [30, 0]
+            height: (forecast_label.height + weather_info.height) + 50
 
-            MDRelativeLayout:
+            MDBoxLayout:
+                id: card_box
+                orientation: 'vertical'
+
                 MDLabel:
-                    anchor_y: 'top'
+                    id: forecast_label
+                    padding: [20, 20]
                     markup: True
-                    text: '[b]Forecast (now):[/b]'
-                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+                    text: '[b]Forecast (now)[/b]'
                     font_size: '24sp'
+                    size_hint_y: None
+                    height: self.texture_size[1]
 
                 MDLabel:
                     id: weather_info
                     font_size: '18sp'
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.3}
                     text: "You didn't enter the city yet."
+                    size_hint_y: None
+                    padding: [20, 30]
+                    size_hint_y: None
+                    height: self.texture_size[1] + 2*self.padding[1]
 
 
         AnchorLayout:
-            size_hint_x: 0.3
             anchor_x: 'right'
-            anchor_y: 'center'
+            anchor_y: 'top'
+            size_hint_y: 1
 
             MDRoundFlatButton:
                 id: switch_temperature_mode_button
                 on_release:
                     root.temperature_switch()
-                anchor_y: 'center'
-                anchor_x: 'center'
                 text: 'F/C'
                 font_size: '20sp'
                 text_color: 'white'

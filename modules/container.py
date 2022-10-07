@@ -52,5 +52,6 @@ class Container(MDGridLayout):
         Uses as an event handler.
         Is not intended for using by other modules.
         """
-        self._forecast.switch_temperature_mode()
-        self._update_weather()
+        if self._forecast:
+            self._forecast.switch_temperature_mode()
+            self._update_weather()

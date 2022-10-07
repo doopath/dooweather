@@ -3,46 +3,45 @@
 <Container>:
     rows: 3
     padding: 50
-    spacing: 20
+    spacing: 40
 
     weather_info_label: weather_info
     input_field: input
-    get_weather_button: get_weather_button
+    switch_temperature_mode_button: switch_temperature_mode_button
     choose_city_button: choose_city
 
     MDGridLayout:
         rows: 1
         cols: 2
-        size_hint_y: 0.8
         alignment: 'horizontal'
-        spacing: 15
+        spacing: 20
 
-        MDStackLayout:
-            halign: 'left'
-            alignment: 'vertical'
-            size_hint_y: 0.8
-            spacing: 80
+        MDCard:
+            radius: dp(20)
+            padding: 40
 
-            MDLabel:
-                size_hint_y: 0.1
-                markup: True
-                text: '[b]Forecast (now):[/b]'
-                font_size: '24sp'
-                valign: 'bottom'
+            MDRelativeLayout:
+                MDLabel:
+                    anchor_y: 'top'
+                    markup: True
+                    text: '[b]Forecast (now):[/b]'
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+                    font_size: '24sp'
 
-            MDLabel:
-                id: weather_info
-                size_hint_y: 0.3
-                font_size: '18sp'
-                text: "You didn't enter the city yet."
+                MDLabel:
+                    id: weather_info
+                    font_size: '18sp'
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+                    text: "You didn't enter the city yet."
+
 
         AnchorLayout:
-            size_hint: 0.2, 1
-            anchor_x: 'center'
+            size_hint_x: 0.3
+            anchor_x: 'right'
             anchor_y: 'center'
 
             MDRoundFlatButton:
-                id: get_weather_button
+                id: switch_temperature_mode_button
                 on_release:
                     root.temperature_switch()
                 anchor_y: 'center'
@@ -67,7 +66,6 @@
             font_size: '20sp'
             text_color: 'white'
             line_width: 1.5
-
             on_release:
                 root.show_dropdown_menu()
 
@@ -77,6 +75,5 @@
         font_size: '20sp'
         text_color: 'white'
         line_width: 1.5
-
         on_release:
             root.set_weather()

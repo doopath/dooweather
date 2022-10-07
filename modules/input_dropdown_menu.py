@@ -12,10 +12,12 @@ class InputDropdownMenu(MDDropdownMenu):
     def __init__(self, update_location: Callable, cache: Cache, **kwargs):
         super().__init__(**kwargs)
         self._cache = cache
+        self._remove_all_button_text = "Remove All"
         self._update_weather = update_location
         self.items = []
         self.position = 'center'
         self.width_mult = 4
+        self.max_height = 200
 
     def _get_cached_cities(self) -> list[str]:
         try:
@@ -31,16 +33,26 @@ class InputDropdownMenu(MDDropdownMenu):
             'on_release': lambda: self._on_release(city)
         }
 
+    def _clear_all_items(self) -> None:
+        self._cache.set_value('CITIES', [])
+        self.items = []
+
+    def _add_remove_all_button(self) -> None:
+        self.items.append(self._create_item(self._remove_all_button_text))
+
     def _set_items(self) -> None:
         cities = self._get_cached_cities()
         self.items = [self._create_item(city) for city in cities]
 
-        length = len(self.items)
-
-        if self.width_mult < length < 5: pass
+        if len(self.items) > 0:
+            self._add_remove_all_button()
 
     def _on_release(self, city: str) -> None:
-        self._update_weather(city)
+        if city == self._remove_all_button_text:
+            self._clear_all_items()
+        else:
+            self._update_weather(city)
+
         self.dismiss()
 
     def open(self) -> None:

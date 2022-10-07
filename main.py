@@ -24,6 +24,9 @@ class MainApp(MDApp):
     def on_stop(self) -> None:
         self._cache.save_session()
 
+    def on_pause(self) -> None:
+        self._cache.save_session()
+
 
 def main():
     MainApp().run()

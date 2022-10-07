@@ -4,18 +4,41 @@ from modules.cache import Cache
 
 
 def fahrenheit_to_celsius(deg: int) -> int:
+    """
+    Covert Fahrenheit to celsius.
+
+    Parameters
+    ----------
+    deg - celsius degrees as int.
+
+    Returns
+    -------
+    Fahrenheit degrees int.
+    """
     return round((deg - 32) * 5 / 9)
 
 
 def celsius_to_fahrenheit(deg: int) -> int:
+    """
+    Covert Celsius to fahrenheit.
+
+    Parameters
+    ----------
+    deg - fahrenheit degrees as int.
+
+    Returns
+    -------
+    Celsius degrees int.
+    """
     return round(deg * 9 / 5 + 32)
 
 
 class Forecast:
-    def __init__(self, forecast: Weather, cache: Cache):
+    def __init__(self, forecast: Weather, city: str, cache: Cache):
         self._is_valid = False
         self._cache = cache
         self._check_if_valid(forecast)
+        self._city = city
 
         self.temperature = forecast.current.temperature
         self.humidity = forecast.current.humidity
@@ -62,8 +85,19 @@ class Forecast:
                 "Temperature format can be only 'C' or 'F'!")
 
     def beautified(self) -> str:
+        """
+        Returns
+        -------
+        Formatted temperature info.
+        """
         if not self._is_valid:
             return "Invalid location!"
+
+        cities: list = self._cache.get_value('CITIES')
+
+        if self._city not in cities:
+            cities.append(self._city)
+            self._cache.set_value('CITIES', cities)
 
         return f"Temperature: {self.temperature}{self._temperature_mode}" +\
             f" (Feels like {self.feels_like}{self._temperature_mode})\n" +\

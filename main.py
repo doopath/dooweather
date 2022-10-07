@@ -11,8 +11,8 @@ from modules.container import Container
 
 class MainApp(MDApp):
     def __init__(self, **kwargs):
-        self._cache = Cache()
         super().__init__(**kwargs)
+        self._cache = Cache()
 
     def build(self) -> Widget:
         Window.softinput_mode = 'pan'

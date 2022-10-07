@@ -7,6 +7,8 @@
 
     weather_info_label: weather_info
     input_field: input
+    get_weather_button: get_weather_button
+    choose_city_button: choose_city
 
     MDGridLayout:
         rows: 1
@@ -19,7 +21,7 @@
             halign: 'left'
             alignment: 'vertical'
             size_hint_y: 0.8
-            spacing: 30
+            spacing: 80
 
             MDLabel:
                 size_hint_y: 0.1
@@ -40,6 +42,7 @@
             anchor_y: 'center'
 
             MDRoundFlatButton:
+                id: get_weather_button
                 on_release:
                     root.temperature_switch()
                 anchor_y: 'center'
@@ -49,13 +52,24 @@
                 text_color: 'white'
                 line_width: 1.5
 
+    MDBoxLayout:
+        spacing: 30
+        orientation: 'horizontal'
 
-    MDTextField:
-        id: input
-        size_hint_x: 1
-        hint_text: 'Enter your city'
-        text_color_focus: 'white'
+        MDTextField:
+            id: input
+            hint_text: 'Enter your city'
+            text_color_focus: 'white'
 
+        MDRoundFlatButton:
+            id: choose_city
+            text: 'Choose'
+            font_size: '20sp'
+            text_color: 'white'
+            line_width: 1.5
+
+            on_release:
+                root.show_dropdown_menu()
 
     MDRoundFlatButton:
         size_hint_x: 1

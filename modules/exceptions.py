@@ -9,3 +9,7 @@ class InvalidTemperatureFormatException(Exception):
 
 class CacheSessionIsNotStartedException(Exception):
     pass
+
+
+class CacheSessionIsAlreadyStartedException(Exception):
+    pass

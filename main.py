@@ -15,7 +15,9 @@ class MainApp(MDApp):
         self._cache = Cache()
 
     def build(self) -> Widget:
+        Window.size = (600, 800)
         Window.softinput_mode = 'pan'
+
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Red"
 

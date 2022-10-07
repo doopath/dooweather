@@ -34,7 +34,7 @@ class Container(MDGridLayout):
         self.set_weather()
 
     def _update_weather(self) -> None:
-        self.weather_info_label.text = self._forecast.beautified()
+        self.weather_info_label.text = self._forecast.beautified_current
 
     def show_dropdown_menu(self, *_) -> None:
         self.dropdown_menu.open()

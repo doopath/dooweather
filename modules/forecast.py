@@ -1,3 +1,5 @@
+from typing import Generator
+
 import python_weather.forecast
 from python_weather.client import Weather
 from modules.exceptions import (InvalidTemperatureFormatException)
@@ -81,6 +83,7 @@ class Forecast:
         self._current_forecast.feels_like = fahrenheit_to_celsius(self._current_forecast.feels_like)
 
         for forecast in self._feature_forecasts:
+            forecast.temperature = fahrenheit_to_celsius(forecast.temperature)
             forecast.lowest_temperature = fahrenheit_to_celsius(forecast.lowest_temperature)
             forecast.highest_temperature = fahrenheit_to_celsius(forecast.highest_temperature)
 
@@ -89,6 +92,7 @@ class Forecast:
         self._current_forecast.feels_like = celsius_to_fahrenheit(self._current_forecast.feels_like)
 
         for forecast in self._feature_forecasts:
+            forecast.temperature = celsius_to_fahrenheit(forecast.temperature)
             forecast.lowest_temperature = celsius_to_fahrenheit(forecast.lowest_temperature)
             forecast.highest_temperature = celsius_to_fahrenheit(forecast.highest_temperature)
 
@@ -116,8 +120,8 @@ class Forecast:
         return f"City: {self.city}\n" + \
                 f"Date: {forecast.date}\n" + \
                 f"Temperature: {forecast.temperature}{self._temperature_mode}\n" +\
-                f"Lowest t: {forecast.lowest_temperature}{self._temperature_mode}\n" +\
-                f"Highest t: {forecast.highest_temperature}{self._temperature_mode}\n"
+                f"Lowest temperature: {forecast.lowest_temperature}{self._temperature_mode}\n" +\
+                f"Highest temperature: {forecast.highest_temperature}{self._temperature_mode}\n"
 
     def _beautify_main_forecast(self, forecast: CurrentForecast) -> str:
         return f"City: {self.city}\n" +\
@@ -145,12 +149,12 @@ class Forecast:
         return self._beautify_main_forecast(self._current_forecast)
 
     @property
-    def beautified_feature(self) -> DailyForecast:
+    def beautified_feature(self) -> Generator[str, None, None]:
         """
         Formatted feature forecast info.
         """
         for forecast in self._feature_forecasts:
-            yield forecast
+            yield self._beautify_daily_forecast(forecast)
 
     def switch_temperature_mode(self) -> None:
         self._convert_switched_temperature()

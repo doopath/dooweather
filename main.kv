@@ -1,69 +1,82 @@
 #:kivy 2.0.0
 
 <Container>:
-    rows: 3
     padding: 50
-    spacing: 40
+    spacing: 80
+    rows: 3
 
     weather_info_label: weather_info
     input_field: input
     switch_temperature_mode_button: switch_temperature_mode_button
     choose_city_button: choose_city
+    forecast_label: forecast_label
+    forecast_content: forecast_content
+    current_forecast_card: current_forecast_card
+    scroll_view: scroll_view
+    switch_temperature_mode_button_anchor: switch_temperature_mode_button_anchor
 
-    MDGridLayout:
-        rows: 2
-        cols: 1
-        spacing: 30
-        padding: [0, 20]
-        size_hint_y: 1
+    ScrollView:
+        id: scroll_view
 
-        MDCard:
-            radius: dp(20)
-            size_hint: 1, None
-            padding: [30, 0]
-            height: (forecast_label.height + weather_info.height) + 50
+        MDStackLayout:
+            alignment: 'vertical'
+            id: forecast_content
+            spacing: 30
+            padding: [0, 30]
+            size_hint: None, None
+            width: root.width - 50 * 2 - 20
 
-            MDBoxLayout:
-                id: card_box
-                orientation: 'vertical'
+            MDCard:
+                id: current_forecast_card
+                radius: dp(20)
+                size_hint: None, None
+                padding: [30, 0]
+                height: (forecast_label.height + weather_info.height) + 40
+                width: forecast_content.width
+                md_bg_color: .15,.15,.15,1
 
-                MDLabel:
-                    id: forecast_label
-                    padding: [20, 20]
-                    markup: True
-                    text: '[b]Forecast (now)[/b]'
-                    font_size: '24sp'
-                    size_hint_y: None
-                    height: self.texture_size[1]
+                MDBoxLayout:
+                    id: card_box
+                    orientation: 'vertical'
 
-                MDLabel:
-                    id: weather_info
-                    font_size: '18sp'
-                    text: "You didn't enter the city yet."
-                    size_hint_y: None
-                    padding: [20, 30]
-                    line_height: 1.4
-                    size_hint_y: None
-                    height: self.texture_size[1] + 2*self.padding[1]
+                    MDLabel:
+                        id: forecast_label
+                        padding: [20, 20]
+                        markup: True
+                        text: '[b]Forecast (now)[/b]'
+                        font_size: '24sp'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        id: weather_info
+                        font_size: '18sp'
+                        text: "You didn't enter the city yet."
+                        size_hint_y: None
+                        padding: [20, 30]
+                        line_height: 1.4
+                        height: self.texture_size[1] + 2*self.padding[1]
 
 
-        AnchorLayout:
-            anchor_x: 'right'
-            anchor_y: 'top'
-            size_hint_y: 1
+            AnchorLayout:
+                id: switch_temperature_mode_button_anchor
+                anchor_x: 'right'
+                anchor_y: 'top'
+                size_hint_y: 1
 
-            MDRoundFlatButton:
-                id: switch_temperature_mode_button
-                on_release:
-                    root.temperature_switch()
-                text: 'F/C'
-                font_size: '20sp'
-                text_color: 'white'
-                line_width: 1.5
+                MDRoundFlatButton:
+                    id: switch_temperature_mode_button
+                    on_release:
+                        root.temperature_switch()
+                    text: 'F/C'
+                    font_size: '20sp'
+                    text_color: 'white'
+                    line_width: 1.5
 
     MDBoxLayout:
         spacing: 30
         orientation: 'horizontal'
+        size_hint: 1, None
 
         MDTextField:
             id: input
@@ -80,7 +93,7 @@
                 root.show_dropdown_menu()
 
     MDRoundFlatButton:
-        size_hint_x: 1
+        size_hint: 1, None
         text: 'Get weather'
         font_size: '20sp'
         text_color: 'white'

@@ -1,5 +1,5 @@
 """
-    Kivy app prototype.
+    Weather app written in python.
 """
 from kivy.uix.widget import Widget
 from kivymd.app import MDApp
@@ -11,11 +11,10 @@ from modules.container import Container
 
 
 def set_window_size():
-    match platform:
-        case 'android' | 'ios':
-            return
-        case _:
-            Window.size = (600, 800)
+    if platform == 'android' or platform == 'ios':
+        return
+    else:
+        Window.size = (600, 800)
 
 
 class MainApp(MDApp):
@@ -27,10 +26,13 @@ class MainApp(MDApp):
         set_window_size()
         Window.softinput_mode = 'pan'
 
+        container = Container(self._cache)
+        container.scroll_view.height = Window.height
+
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Red"
 
-        return Container(self._cache)
+        return container
 
     def on_stop(self) -> None:
         self._cache.save_session()

@@ -44,7 +44,7 @@ requirements = python3==3.9.9,aiohttp==v3.7.3,aiosignal==v1.2.0,appdirs==v1.4.4,
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-#presplash.filename = %(source.dir)s/data/presplash.png
+presplash.filename = %(source.dir)s/weather_icon.png
 
 # (str) Icon of the application
 icon.filename = %(source.dir)s/weather_icon.png
@@ -76,8 +76,8 @@ fullscreen = 0
 #android.presplash_lottie = "path/to/lottie/file.json"
 
 # (str) Adaptive icon of the application (used if Android API level is 26+ at runtime)
-icon.adaptive_foreground.filename = %(source.dir)s/weather_icon.png
-icon.adaptive_background.filename = %(source.dir)s/weather_icon.png
+#icon.adaptive_foreground.filename = %(source.dir)s/weather_icon.png
+#icon.adaptive_background.filename = %(source.dir)s/weather_icon.png
 # (list) Permissions
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 

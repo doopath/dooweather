@@ -15,6 +15,8 @@ class Container(MDGridLayout):
     def __init__(self, cache: Cache, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.spacing = Window.height / 20
+
         self._forecast: Forecast | None = None
         self._cache = cache
         self._feature_forecasts = []

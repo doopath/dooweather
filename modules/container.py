@@ -1,17 +1,21 @@
 import python_weather
 import asyncio
-import threading
 
 from kivy.core.window import Window
 from modules.daily_forecasts_list import DailyForecastsList
 from modules.forecast import Forecast
 from kivymd.uix.gridlayout import MDGridLayout
-from modules.input_dropdown_menu import InputDropdownMenu
+from modules.cities_dropdown_menu import CitiesDropdownMenu
 from modules.cache import Cache
+from modules import constants
+from modules.locales_dropdown_menu import LocalesDropdownMenu
 
 
 class Container(MDGridLayout):
     def __init__(self, cache: Cache, *args, **kwargs):
+        self.locale = constants.LOCALE
+        self.window = Window
+
         super().__init__(*args, **kwargs)
 
         self.spacing = Window.height / 20
@@ -20,11 +24,8 @@ class Container(MDGridLayout):
         self._cache = cache
         self._feature_forecasts = []
 
-        self.dropdown_menu = InputDropdownMenu(self._set_location_set_weather, self._cache)
-        self.dropdown_menu.caller = self.choose_city_button
-
-        self.forecast_content.height = sum([i.height + 50 for i in self.forecast_content.children]) \
-                                       + Window.height / 3
+        self.forecast_content.height = sum([i.height + Window.height / 20 for i in self.forecast_content.children]) \
+                                       + Window.height / 2.4
 
     def _set_weather(self) -> None:
         async def inner():
@@ -52,6 +53,14 @@ class Container(MDGridLayout):
 
         self._feature_forecasts = []
 
+    def _set_locale(self, locale: str) -> None:
+        try:
+            new_locale = constants.LOCALES[locale]
+            constants.LOCALE, self.locale = new_locale, new_locale
+            self._cache.set_value('LOCALE', locale)
+        except KeyError:
+            pass
+
     def _update_feature_forecasts(self) -> None:
         self._clean_feature_forecasts()
         index = len(self.forecast_content.children) - 1
@@ -63,7 +72,9 @@ class Container(MDGridLayout):
             self.forecast_content.height += card.height + self.forecast_content.spacing[1]
 
     def show_dropdown_menu(self, *_) -> None:
-        self.dropdown_menu.open()
+        dropdown_menu = CitiesDropdownMenu(self._set_location_set_weather, self._cache)
+        dropdown_menu.caller = self.choose_city_button
+        dropdown_menu.open()
 
     def set_weather(self) -> None:
         """
@@ -71,9 +82,7 @@ class Container(MDGridLayout):
         Is not intended for using by other modules.
         """
         self.weather_info_label.text = "Loading..."
-        thread = threading.Thread(target=self._set_weather)
-        thread.start()
-        thread.join()
+        self._set_weather()
         self._update_feature_forecasts()
 
     def temperature_switch(self) -> None:
@@ -86,3 +95,11 @@ class Container(MDGridLayout):
             self._update_current_forecast()
             self._update_feature_forecasts()
 
+    def locale_switch(self) -> None:
+        """
+        Uses as an event handler.
+        Is not intended for using by other modules.
+        """
+        dropdown_menu = LocalesDropdownMenu(self._set_locale)
+        dropdown_menu.caller = self.switch_locale_button
+        dropdown_menu.open()

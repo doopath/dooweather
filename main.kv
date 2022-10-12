@@ -13,6 +13,7 @@
     current_forecast_card: current_forecast_card
     scroll_view: scroll_view
     switch_temperature_mode_button_anchor: switch_temperature_mode_button_anchor
+    switch_locale_button: switch_locale_button
 
     ScrollView:
         id: scroll_view
@@ -30,10 +31,10 @@
 
             MDCard:
                 id: current_forecast_card
-                radius: dp(20)
+                radius: dp(15)
                 size_hint: None, None
-                padding: [30, 0]
-                height: (forecast_label.height + weather_info.height) + 40
+                padding: [root.window.height / 40, 0]
+                height: (forecast_label.height + weather_info.height) + root.window.height / 40
                 width: forecast_content.width
                 md_bg_color: .15,.15,.15,1
 
@@ -43,9 +44,9 @@
 
                     MDLabel:
                         id: forecast_label
-                        padding: [20, 20]
+                        padding: [root.height / 40, root.height / 40]
                         markup: True
-                        text: '[b]Forecast (now)[/b]'
+                        text: f'[b]{root.locale["FORECAST_NOW"]}[/b]'
                         font_size: '24sp'
                         size_hint_y: None
                         height: self.texture_size[1]
@@ -53,24 +54,41 @@
                     MDLabel:
                         id: weather_info
                         font_size: '18sp'
-                        text: "You didn't enter the city yet."
+                        text: root.locale['ENTERED_NO_CITY']
                         size_hint_y: None
-                        padding: [20, 30]
+                        padding: [root.height / 40, root.height / 40]
                         line_height: 1.4
                         height: self.texture_size[1] + 2*self.padding[1]
 
 
-            AnchorLayout:
+            MDGridLayout:
                 id: switch_temperature_mode_button_anchor
                 anchor_x: 'right'
                 anchor_y: 'top'
                 size_hint_y: 1
+                cols: 3
+                rows: 1
+                spacing: 20
+                padding: [10, 0]
+
+                MDBoxLayout:
+                    size_hint_y: None
+                    size_hint_x: 0.8
 
                 MDRoundFlatButton:
                     id: switch_temperature_mode_button
                     on_release:
                         root.temperature_switch()
                     text: 'F/C'
+                    font_size: '20sp'
+                    text_color: 'white'
+                    line_width: 1.5
+
+                MDRoundFlatButton:
+                    id: switch_locale_button
+                    on_release:
+                        root.locale_switch()
+                    text: root.locale['LOCALE_BUTTON']
                     font_size: '20sp'
                     text_color: 'white'
                     line_width: 1.5
@@ -82,12 +100,12 @@
 
         MDTextField:
             id: input
-            hint_text: 'Enter your city'
+            hint_text: root.locale['ENTER_CITY']
             text_color_focus: 'white'
 
         MDRoundFlatButton:
             id: choose_city
-            text: 'Choose'
+            text: root.locale['SELECT_BUTTON']
             font_size: '20sp'
             text_color: 'white'
             line_width: 1.5
@@ -96,7 +114,7 @@
 
     MDRoundFlatButton:
         size_hint: 1, None
-        text: 'Get weather'
+        text: root.locale['GET_WEATHER_BUTTON']
         font_size: '20sp'
         text_color: 'white'
         line_width: 1.5

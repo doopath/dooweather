@@ -1,18 +1,21 @@
 """
-    Dropdown menu for an input field.
+    Dropdown menu for selecting a city.
 """
 from typing import Any, Callable
 from kivy.core.window import Window
 from kivymd.uix.menu import MDDropdownMenu
 from modules.cache import Cache
+from modules import constants
 
 
-class InputDropdownMenu(MDDropdownMenu):
+class CitiesDropdownMenu(MDDropdownMenu):
     def __init__(self, update_location: Callable, cache: Cache, **kwargs):
         super().__init__(**kwargs)
+
         self._cache = cache
-        self._remove_all_button_text = "Remove All"
+        self._remove_all_button_text = constants.LOCALE['REMOVE_ALL']
         self._update_weather = update_location
+
         self.items = []
         self.position = 'center'
         self.width_mult = 4

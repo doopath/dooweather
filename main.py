@@ -5,9 +5,10 @@ from kivy.uix.widget import Widget
 from kivymd.app import MDApp
 from kivy.core.window import Window
 from kivy.utils import platform
-
 from modules.cache import Cache
 from modules.container import Container
+from modules.constants import LOCALES
+from modules import constants
 
 
 def set_window_size():
@@ -24,9 +25,9 @@ class MainApp(MDApp):
         self._cache = Cache()
 
     def build(self) -> Widget:
+        self._set_locale()
         set_window_size()
         Window.softinput_mode = 'pan'
-
         container = Container(self._cache)
         container.scroll_view.height = Window.height
 
@@ -41,6 +42,12 @@ class MainApp(MDApp):
 
     def on_pause(self) -> None:
         self._cache.save_session()
+
+    def _set_locale(self) -> None:
+        try:
+            locale_key = self._cache.get_value('LOCALE')
+            constants.LOCALE = LOCALES[locale_key]
+        except KeyError: pass
 
 
 def main():

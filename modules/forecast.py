@@ -4,6 +4,7 @@ import python_weather.forecast
 from python_weather.client import Weather
 from modules.exceptions import (InvalidTemperatureFormatException)
 from modules.cache import Cache
+from modules import constants
 
 
 def fahrenheit_to_celsius(deg: int) -> int:
@@ -117,20 +118,20 @@ class Forecast:
                 "Temperature format can be only 'C' or 'F'!")
 
     def _beautify_daily_forecast(self, forecast: DailyForecast) -> str:
-        return f"City: {self.city}\n" + \
-                f"Date: {forecast.date}\n" + \
-                f"Temperature: {forecast.temperature}{self._temperature_mode}\n" +\
-                f"Lowest temperature: {forecast.lowest_temperature}{self._temperature_mode}\n" +\
-                f"Highest temperature: {forecast.highest_temperature}{self._temperature_mode}\n"
+        return f"{constants.LOCALE['CITY']}: {self.city}\n" + \
+                f"{constants.LOCALE['DATE']}: {forecast.date}\n" + \
+                f"{constants.LOCALE['TEMPERATURE']}: {forecast.temperature}{self._temperature_mode}\n" +\
+                f"{constants.LOCALE['LOWEST_TEMPERATURE']}: {forecast.lowest_temperature}{self._temperature_mode}\n" +\
+                f"{constants.LOCALE['HIGHEST_TEMPERATURE']}: {forecast.highest_temperature}{self._temperature_mode}\n"
 
     def _beautify_main_forecast(self, forecast: CurrentForecast) -> str:
         return f"City: {self.city}\n" +\
-            f"Temperature: {forecast.temperature}{self._temperature_mode}" +\
-            f" (Feels like {forecast.feels_like}{self._temperature_mode})\n" +\
-            f"Humidity: {forecast.humidity}%\n" +\
-            f"Wind Speed: {forecast.wind_speed} km/h\n" +\
-            f"Wind Direction: {forecast.wind_direction}\n" +\
-            f"Pressure: {forecast.pressure}"
+            f"{constants.LOCALE['TEMPERATURE']}: {forecast.temperature}{self._temperature_mode}" +\
+            f" ({constants.LOCALE['FEELS_LIKE']} {forecast.feels_like}{self._temperature_mode})\n" +\
+            f"{constants.LOCALE['HUMIDITY']}: {forecast.humidity}%\n" +\
+            f"{constants.LOCALE['WIND_SPEED']}: {forecast.wind_speed} km/h\n" +\
+            f"{constants.LOCALE['WIND_DIRECTION']}: {forecast.wind_direction}\n" +\
+            f"{constants.LOCALE['PRESSURE']}: {forecast.pressure}"
 
     @property
     def beautified_current(self) -> str:
@@ -138,9 +139,10 @@ class Forecast:
         Formatted current forecast info.
         """
         if not self._is_valid:
-            return "Invalid location!"
+            return constants.LOCALE['INVALID_LOCATION']
 
-        cities: list = self._cache.get_value('CITIES')
+        try: cities: list = self._cache.get_value('CITIES')
+        except KeyError: cities = []
 
         if self.city not in cities:
             cities.append(self.city)

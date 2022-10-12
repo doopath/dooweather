@@ -3,7 +3,6 @@ import asyncio
 import threading
 
 from kivy.core.window import Window
-
 from modules.daily_forecasts_list import DailyForecastsList
 from modules.forecast import Forecast
 from kivymd.uix.gridlayout import MDGridLayout
@@ -86,3 +85,4 @@ class Container(MDGridLayout):
             self._forecast.switch_temperature_mode()
             self._update_current_forecast()
             self._update_feature_forecasts()
+

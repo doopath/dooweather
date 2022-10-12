@@ -20,6 +20,7 @@ def set_window_size():
 class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.logo = None
         self._cache = Cache()
 
     def build(self) -> Widget:
@@ -29,6 +30,7 @@ class MainApp(MDApp):
         container = Container(self._cache)
         container.scroll_view.height = Window.height
 
+        self.logo = 'weather_icon.png'
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Red"
 

@@ -125,7 +125,7 @@ class Forecast:
                 f"{constants.LOCALE['HIGHEST_TEMPERATURE']}: {forecast.highest_temperature}{self._temperature_mode}\n"
 
     def _beautify_main_forecast(self, forecast: CurrentForecast) -> str:
-        return f"City: {self.city}\n" +\
+        return f"{constants.LOCALE['CITY']}: {self.city}\n" +\
             f"{constants.LOCALE['TEMPERATURE']}: {forecast.temperature}{self._temperature_mode}" +\
             f" ({constants.LOCALE['FEELS_LIKE']} {forecast.feels_like}{self._temperature_mode})\n" +\
             f"{constants.LOCALE['HUMIDITY']}: {forecast.humidity}%\n" +\

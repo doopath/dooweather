@@ -13,7 +13,7 @@ class Card(MDCard):
         super().__init__(*args, **kwargs)
 
         label = MDLabel(
-            padding=[Window.height / 40, 0],
+            padding=[Window.height / 40, Window.height / 40],
             text=f'\n{text}',
             line_height=1.4,
             size_hint=(1, 1)
@@ -22,4 +22,4 @@ class Card(MDCard):
         label.size = label.texture_size
 
         self.add_widget(label)
-        self.height = label.height + Window.height / 3.5
+        self.height = label.height + Window.height / 3.0

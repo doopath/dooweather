@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Generator, AsyncGenerator
 
 import python_weather.forecast
 from python_weather.client import Weather
@@ -62,7 +62,7 @@ class Forecast:
         self._check_if_valid(forecast)
         self.city = city
         self._current_forecast = CurrentForecast(forecast.current)
-        self._feature_forecasts = [DailyForecast(f) for f in forecast.forecasts]
+        self._future_forecasts = [DailyForecast(f) for f in forecast.forecasts]
 
         # TEMP_MODE is 'F' or 'C'
         try:
@@ -83,7 +83,7 @@ class Forecast:
         self._current_forecast.temperature = fahrenheit_to_celsius(self._current_forecast.temperature)
         self._current_forecast.feels_like = fahrenheit_to_celsius(self._current_forecast.feels_like)
 
-        for forecast in self._feature_forecasts:
+        for forecast in self._future_forecasts:
             forecast.temperature = fahrenheit_to_celsius(forecast.temperature)
             forecast.lowest_temperature = fahrenheit_to_celsius(forecast.lowest_temperature)
             forecast.highest_temperature = fahrenheit_to_celsius(forecast.highest_temperature)
@@ -92,7 +92,7 @@ class Forecast:
         self._current_forecast.temperature = celsius_to_fahrenheit(self._current_forecast.temperature)
         self._current_forecast.feels_like = celsius_to_fahrenheit(self._current_forecast.feels_like)
 
-        for forecast in self._feature_forecasts:
+        for forecast in self._future_forecasts:
             forecast.temperature = celsius_to_fahrenheit(forecast.temperature)
             forecast.lowest_temperature = celsius_to_fahrenheit(forecast.lowest_temperature)
             forecast.highest_temperature = celsius_to_fahrenheit(forecast.highest_temperature)
@@ -151,11 +151,11 @@ class Forecast:
         return self._beautify_main_forecast(self._current_forecast)
 
     @property
-    def beautified_feature(self) -> Generator[str, None, None]:
+    async def beautified_future(self):
         """
         Formatted feature forecast info.
         """
-        for forecast in self._feature_forecasts:
+        for forecast in self._future_forecasts:
             yield self._beautify_daily_forecast(forecast)
 
     def switch_temperature_mode(self) -> None:

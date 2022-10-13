@@ -7,3 +7,5 @@ bin/
 kivy_venv/
 resources/
 cache.json
+run.json
+settings.json

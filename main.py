@@ -2,9 +2,12 @@
     Weather app written in python.
 """
 from kivy.uix.widget import Widget
-from kivymd.app import MDApp
 from kivy.core.window import Window
 from kivy.utils import platform
+
+from kivymd.app import MDApp
+from kivymd.uix.gridlayout import MDGridLayout
+
 from modules.cache import Cache
 from modules.container import Container
 from modules.constants import LOCALES
@@ -15,7 +18,7 @@ def set_window_size():
     if platform == 'android' or platform == 'ios':
         return
     else:
-        Window.size = (600, 800)
+        Window.size = (550, 900)
 
 
 class MainApp(MDApp):
@@ -27,9 +30,9 @@ class MainApp(MDApp):
     def build(self) -> Widget:
         self._set_locale()
         set_window_size()
+
         Window.softinput_mode = 'pan'
-        container = Container(self._cache)
-        container.scroll_view.height = Window.height
+        container: MDGridLayout = Container(self._cache)
 
         self.logo = 'weather_icon.png'
         self.theme_cls.theme_style = "Dark"
@@ -55,3 +58,4 @@ def main():
 
 
 (lambda: main() if __name__ == "__main__" else None)()
+

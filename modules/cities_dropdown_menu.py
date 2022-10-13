@@ -60,3 +60,4 @@ class CitiesDropdownMenu(MDDropdownMenu):
     def open(self) -> None:
         self._set_items()
         super().open()
+

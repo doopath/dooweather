@@ -1,8 +1,7 @@
-from typing import Generator, AsyncGenerator
-
 import python_weather.forecast
 from python_weather.client import Weather
 from modules.exceptions import (InvalidTemperatureFormatException)
+from typing import AsyncGenerator
 from modules.cache import Cache
 from modules import constants
 
@@ -119,19 +118,19 @@ class Forecast:
 
     def _beautify_daily_forecast(self, forecast: DailyForecast) -> str:
         return f"{constants.LOCALE['CITY']}: {self.city}\n" + \
-                f"{constants.LOCALE['DATE']}: {forecast.date}\n" + \
-                f"{constants.LOCALE['TEMPERATURE']}: {forecast.temperature}{self._temperature_mode}\n" +\
-                f"{constants.LOCALE['LOWEST_TEMPERATURE']}: {forecast.lowest_temperature}{self._temperature_mode}\n" +\
-                f"{constants.LOCALE['HIGHEST_TEMPERATURE']}: {forecast.highest_temperature}{self._temperature_mode}\n"
+               f"{constants.LOCALE['DATE']}: {forecast.date}\n" + \
+               f"{constants.LOCALE['TEMPERATURE']}: {forecast.temperature}{self._temperature_mode}\n" + \
+               f"{constants.LOCALE['LOWEST_TEMPERATURE']}: {forecast.lowest_temperature}{self._temperature_mode}\n" + \
+               f"{constants.LOCALE['HIGHEST_TEMPERATURE']}: {forecast.highest_temperature}{self._temperature_mode}\n"
 
     def _beautify_main_forecast(self, forecast: CurrentForecast) -> str:
-        return f"{constants.LOCALE['CITY']}: {self.city}\n" +\
-            f"{constants.LOCALE['TEMPERATURE']}: {forecast.temperature}{self._temperature_mode}" +\
-            f" ({constants.LOCALE['FEELS_LIKE']} {forecast.feels_like}{self._temperature_mode})\n" +\
-            f"{constants.LOCALE['HUMIDITY']}: {forecast.humidity}%\n" +\
-            f"{constants.LOCALE['WIND_SPEED']}: {forecast.wind_speed} km/h\n" +\
-            f"{constants.LOCALE['WIND_DIRECTION']}: {forecast.wind_direction}\n" +\
-            f"{constants.LOCALE['PRESSURE']}: {forecast.pressure}"
+        return f"{constants.LOCALE['CITY']}: {self.city}\n" + \
+               f"{constants.LOCALE['TEMPERATURE']}: {forecast.temperature}{self._temperature_mode}" + \
+               f" ({constants.LOCALE['FEELS_LIKE']} {forecast.feels_like}{self._temperature_mode})\n" + \
+               f"{constants.LOCALE['HUMIDITY']}: {forecast.humidity}%\n" + \
+               f"{constants.LOCALE['WIND_SPEED']}: {forecast.wind_speed} km/h\n" + \
+               f"{constants.LOCALE['WIND_DIRECTION']}: {forecast.wind_direction}\n" + \
+               f"{constants.LOCALE['PRESSURE']}: {forecast.pressure}"
 
     @property
     def beautified_current(self) -> str:
@@ -141,8 +140,10 @@ class Forecast:
         if not self._is_valid:
             return constants.LOCALE['INVALID_LOCATION']
 
-        try: cities: list = self._cache.get_value('CITIES')
-        except KeyError: cities = []
+        try:
+            cities: list = self._cache.get_value('CITIES')
+        except KeyError:
+            cities = []
 
         if self.city not in cities:
             cities.append(self.city)
@@ -151,7 +152,7 @@ class Forecast:
         return self._beautify_main_forecast(self._current_forecast)
 
     @property
-    async def beautified_future(self):
+    async def beautified_future(self) -> AsyncGenerator:
         """
         Formatted feature forecast info.
         """
@@ -161,3 +162,4 @@ class Forecast:
     def switch_temperature_mode(self) -> None:
         self._convert_switched_temperature()
         self._switch_temperature_mode()
+

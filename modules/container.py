@@ -2,13 +2,21 @@ import python_weather
 import asyncio
 
 from kivy.core.window import Window
+
 from modules.daily_forecast.daily_forecasts_list import DailyForecastsList
 from modules.forecast import Forecast
-from kivymd.uix.gridlayout import MDGridLayout
 from modules.cities_dropdown_menu import CitiesDropdownMenu
 from modules.cache import Cache
 from modules import constants
 from modules.locales_dropdown_menu import LocalesDropdownMenu
+
+from kivymd.uix.gridlayout import MDGridLayout
+from kivymd.uix.widget import MDWidget
+from kivymd.uix.label import MDLabel
+from kivymd.uix.stacklayout import MDStackLayout
+from kivymd.uix.button import MDRoundFlatButton
+
+from typing import Any
 
 
 class Container(MDGridLayout):
@@ -16,16 +24,23 @@ class Container(MDGridLayout):
         self.locale = constants.LOCALE
         self.window = Window
 
+        self.forecast_content: MDStackLayout
+        self.input_field: MDLabel
+        self.weather_info_label: MDLabel
+        self.switch_locale_button: MDRoundFlatButton
+        self.choose_city_button: MDRoundFlatButton
+
         super().__init__(*args, **kwargs)
 
         self.spacing = Window.height / 20
 
-        self._forecast: Forecast | None = None
+        self._forecast: Forecast
         self._cache = cache
         self._future_forecasts = []
 
-        self.forecast_content.height = sum([i.height + Window.height / 20 for i in self.forecast_content.children]) \
-                                       + Window.height / 2.4
+        self.forecast_content.height = sum([i.height + Window.height \
+            / 20 for i in self.forecast_content.children]) \
+            + Window.height / 2.4
 
     async def _set_weather(self) -> None:
         async def inner():
@@ -72,7 +87,8 @@ class Container(MDGridLayout):
             self.forecast_content.height += card.height + self.forecast_content.spacing[1]
 
     def show_dropdown_menu(self, *_) -> None:
-        dropdown_menu = CitiesDropdownMenu(self._set_location_set_weather, self._cache)
+        dropdown_menu = CitiesDropdownMenu(
+            self._set_location_set_weather, self._cache)
         dropdown_menu.caller = self.choose_city_button
         dropdown_menu.open()
 
@@ -110,3 +126,4 @@ class Container(MDGridLayout):
         dropdown_menu = LocalesDropdownMenu(self._set_locale)
         dropdown_menu.caller = self.switch_locale_button
         dropdown_menu.open()
+

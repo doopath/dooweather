@@ -30,7 +30,8 @@ def check_if_opened(f: Callable) -> Callable:
         if self.is_opened:
             return f(self, *args, **kwargs)
         else:
-            raise CacheSessionIsNotStartedException("You didn't start the cache session!")
+            raise CacheSessionIsNotStartedException(
+                "You didn't start the cache session!")
 
     return inner
 
@@ -38,7 +39,8 @@ def check_if_opened(f: Callable) -> Callable:
 def check_if_closed(f: Callable) -> Callable:
     """
     A decorator that checks if the given context's (self)
-    parameter "is_opened" is False. Otherwise, it raises the CacheSessionIsAlreadyStartedException.
+    parameter "is_opened" is False. Otherwise,
+        it raises the CacheSessionIsAlreadyStartedException.
     Is not intended for using by other modules.
 
     Parameters
@@ -53,7 +55,8 @@ def check_if_closed(f: Callable) -> Callable:
         if not self.is_opened:
             return f(self, *args, **kwargs)
         else:
-            raise CacheSessionIsAlreadyStartedException("You didn't start the cache session!")
+            raise CacheSessionIsAlreadyStartedException(
+                "You didn't start the cache session!")
 
     return inner
 
@@ -178,3 +181,4 @@ class Cache:
         """
         for key in couples.keys():
             self._local_cache[key] = couples[key]
+

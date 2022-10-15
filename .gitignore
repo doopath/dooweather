@@ -9,3 +9,7 @@ resources/
 cache.json
 run.json
 settings.json
+build/
+DooWeather.spec
+dist/
+

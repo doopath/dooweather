@@ -18,7 +18,7 @@ def set_window_size():
     if platform == 'android' or platform == 'ios':
         return
     else:
-        Window.size = (550, 900)
+        Window.size = (800, 900)
 
 
 class MainApp(MDApp):

@@ -1,6 +1,7 @@
 .buildozer/
 .idea/
 .vscode/
+.fleet
 __pycache__/
 */__pycache__/
 bin/

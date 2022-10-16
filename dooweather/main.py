@@ -54,7 +54,8 @@ class MainApp(MDApp):
         Window.softinput_mode = 'pan'
         container: MDGridLayout = Container(self._cache)
 
-        self.logo = 'weather_icon.png'
+        self.icon = 'weather_icon.png'
+        self.title = 'DooWeather'
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Red"
 

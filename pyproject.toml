@@ -23,17 +23,13 @@ dependencies = [
     'kivymd==1.0.2'
 ]
 
-# [tool.setuptools.packages.find]
-# where = ['.']
-# include = ['modules*', 'dooweather*']
-# exclude = ['buildozer*', 'resources*']
-# namespaces = false
-
-[tool.setuptools]
-packages = ['dooweather', 'dooweather.modules']
+[tool.setuptools.packages.find]
+where = ['.']
+include = ['dooweather.modules', 'dooweather', 'images']
+exclude = ['resources']
 
 [tool.setuptools.package-data]
-'*' = ['*.kv']
+'*' = ['*.kv', '*.png']
 
 [project.scripts]
 dooweather = 'dooweather.main:main'

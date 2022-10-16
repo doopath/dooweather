@@ -4,7 +4,7 @@
 from typing import Any, Callable
 from kivy.core.window import Window
 from kivymd.uix.menu import MDDropdownMenu
-from dooweather.modules import constants
+from . import constants
 
 
 class LocalesDropdownMenu(MDDropdownMenu):

@@ -1,20 +1,20 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
+requires = ['setuptools', 'setuptools-scm']
+build-backend = 'setuptools.build_meta'
 
 [project]
-name = "DooWeather"
-version = "1.0"
+name = 'DooWeather'
+version = '1.0'
 authors = [
-  { name="Michael Nikishov", email="doopath@gmail.com" },
+  { name='Michael Nikishov', email='doopath@gmail.com' },
 ]
-description = "Crossplatform weather app written in python"
-readme = "README.md"
-requires-python = ">=3.9"
+description = 'Crossplatform weather app written in python'
+readme = 'README.md'
+requires-python = '>=3.9'
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GNU General Public License (GPL)",
-    "Operating System :: OS Independent",
+    'Programming Language :: Python :: 3',
+    'License :: OSI Approved :: GNU General Public License (GPL)',
+    'Operating System :: OS Independent',
 ]
 
 dependencies = [
@@ -23,11 +23,14 @@ dependencies = [
     'kivymd==1.0.2'
 ]
 
-[tool.setuptools.packages.find]
-where = ['.']
-include = ['modules*', 'dooweather*']
-exclude = ['buildozer*', 'resources*']
-namespaces = false
+# [tool.setuptools.packages.find]
+# where = ['.']
+# include = ['modules*', 'dooweather*']
+# exclude = ['buildozer*', 'resources*']
+# namespaces = false
+
+[tool.setuptools]
+packages = ['dooweather', 'dooweather.modules']
 
 [tool.setuptools.package-data]
 '*' = ['*.kv']
@@ -36,4 +39,4 @@ namespaces = false
 dooweather = 'dooweather.main:main'
 
 [project.urls]
-"Homepage" = "https://github.com/doopath/dooweather"
+'Homepage' = 'https://github.com/doopath/dooweather'

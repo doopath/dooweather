@@ -4,8 +4,8 @@
 from typing import Any, Callable
 from kivy.core.window import Window
 from kivymd.uix.menu import MDDropdownMenu
-from dooweather.modules.cache import Cache
-from dooweather.modules import constants
+from .cache import Cache
+from . import constants
 
 
 class CitiesDropdownMenu(MDDropdownMenu):

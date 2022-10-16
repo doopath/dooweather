@@ -14,8 +14,11 @@ resources/
 .buildozer/
 bin/
 build/
-DooWeather.egg*
 DooWeather.spec
+
+DooWeather.egg*
 dist/
+*/*/dist
+*/*/dooweather_modules.egg-info
 
 dooweather/dooweather-cache.json

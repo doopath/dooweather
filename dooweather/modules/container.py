@@ -3,12 +3,12 @@ import asyncio
 
 from kivy.core.window import Window
 
-from dooweather.modules.daily_forecast.daily_forecasts_list import DailyForecastsList
-from dooweather.modules.forecast import Forecast
-from dooweather.modules.cities_dropdown_menu import CitiesDropdownMenu
-from dooweather.modules.cache import Cache
-from dooweather.modules import constants
-from dooweather.modules.locales_dropdown_menu import LocalesDropdownMenu
+from .daily_forecast.daily_forecasts_list import DailyForecastsList
+from .forecast import Forecast
+from .cities_dropdown_menu import CitiesDropdownMenu
+from .cache import Cache
+from . import constants
+from .locales_dropdown_menu import LocalesDropdownMenu
 
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.label import MDLabel

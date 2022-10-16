@@ -5,8 +5,8 @@
 import os
 import json
 from typing import Any, Callable
-from dooweather.modules.constants import APP_DIR
-from dooweather.modules.exceptions import CacheSessionIsNotStartedException, CacheSessionIsAlreadyStartedException
+from .constants import APP_DIR
+from .exceptions import CacheSessionIsNotStartedException, CacheSessionIsAlreadyStartedException
 
 
 def check_if_opened(f: Callable) -> Callable:

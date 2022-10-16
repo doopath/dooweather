@@ -3,9 +3,9 @@ from typing import Generator
 
 import python_weather.forecast
 from python_weather.client import Weather
-from dooweather.modules.exceptions import (InvalidTemperatureFormatException)
-from dooweather.modules.cache import Cache
-from dooweather.modules import constants
+from .exceptions import (InvalidTemperatureFormatException)
+from .cache import Cache
+from . import constants
 
 
 def fahrenheit_to_celsius(deg: int) -> int:

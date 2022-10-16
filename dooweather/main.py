@@ -8,13 +8,33 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 from kivymd.uix.gridlayout import MDGridLayout
 
-from dooweather.modules.cache import Cache
-from dooweather.modules.container import Container
-from dooweather.modules.constants import LOCALES
-from dooweather.modules import constants
+try:
+    """
+    Imports for runnting the app on Android.
+    There the app is located in /smth/org.doopath/app
+    and the buildozer tool gathers all the files from the
+    dooweather directory to the app directory. So you need
+    to import the modules from the app directory.
+    """
+    from modules import cache
+    from modules.container import Container
+    from modules.constants import LOCALES
+    from modules import constants
+except ModuleNotFoundError:
+    """
+    For whl build.
+    In Linux common installation with pip the app will be
+    located in $HOME/.local/lib/pythonX.X/site-packages/dooweather
+    and PYTHONPATH will contain the $HOME/.local/lib/pythonX.X/site-packages
+    directory so you need to set module (dooweather) name.
+    """
+    from dooweather.modules import cache
+    from dooweather.modules.container import Container
+    from dooweather.modules.constants import LOCALES
+    from dooweather.modules import constants
 
 
-def set_window_size():
+def set_window_size() -> None:
     if platform == 'android' or platform == 'ios':
         return
     else:
@@ -25,7 +45,7 @@ class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.logo = None
-        self._cache = Cache()
+        self._cache = cache.Cache()
 
     def build(self) -> Widget:
         self._set_locale()
@@ -53,9 +73,10 @@ class MainApp(MDApp):
         except KeyError: pass
 
 
-def main():
+def main() -> None:
     MainApp().run()
 
 
-(lambda: main() if __name__ == "__main__" else None)()
+if __name__ == "__main__":
+    main()
 

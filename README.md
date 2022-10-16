@@ -25,7 +25,7 @@ This project is not depends on a platform so you can build it for anything where
 ## Requirements
 You need to have python3.9 or newer installed on your machine (only for desktop OS)
 If you want to build the app from sources then you need to install _dependencies.txt_:
-```bash python -m pip install -r dependencies.txt```
+```python -m pip install -r dependencies.txt```
 
 ## Installation
 There are three prebuilds actually: for Android, Windows and Linux.

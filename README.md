@@ -1,7 +1,7 @@
 # DooWeather
 
 ## Preview
-**DooWeather** is a crossplatform app written in Python with [Kivymd](https://github.com/kivymd/KivyMD) library.
+**DooWeather** is a free and opensource crossplatform weather app written in Python with [Kivymd](https://github.com/kivymd/KivyMD) library.
 
 ![no image](https://raw.githubusercontent.com/doopath/dooweather/master/images/dooweather_project_preview.png)
 

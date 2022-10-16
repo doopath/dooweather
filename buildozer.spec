@@ -10,7 +10,7 @@ package.name = dooweather
 package.domain = org.doopath
 
 # (str) Source code where the main.py live
-source.dir = .
+source.dir = ./dooweather/
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas
@@ -33,7 +33,7 @@ version = 1.0
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
-# version.filename = %(source.dir)s/main.py
+# version.filename = %(source.dir)s/../main.py
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
@@ -44,10 +44,10 @@ requirements = python3==3.9.9,aiohttp==v3.7.3,aiosignal==v1.2.0,appdirs==v1.4.4,
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/dooweather_loading_screen.png
+presplash.filename = %(source.dir)s/../dooweather_loading_screen.png
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/weather_icon.png
+icon.filename = %(source.dir)s/../weather_icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -76,8 +76,8 @@ android.presplash_color = #FFFFFF
 #android.presplash_lottie = "path/to/lottie/file.json"
 
 # (str) Adaptive icon of the application (used if Android API level is 26+ at runtime)
-icon.adaptive_foreground.filename = %(source.dir)s/weather_icon.png
-icon.adaptive_background.filename = %(source.dir)s/weather_icon.png
+icon.adaptive_foreground.filename = %(source.dir)s/../weather_icon.png
+icon.adaptive_background.filename = %(source.dir)s/../weather_icon.png
 
 # (list) Permissions
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
@@ -206,7 +206,7 @@ android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,READ_EXTER
 #android.ouya.category = GAME
 
 # (str) Filename of OUYA Console icon. It must be a 732x412 png image.
-android.ouya.icon.filename = %(source.dir)s/weather_icon.png
+android.ouya.icon.filename = %(source.dir)s/../weather_icon.png
 
 # (str) XML file to include as an intent filters in <activity> tag
 #android.manifest.intent_filters =

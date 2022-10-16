@@ -18,7 +18,7 @@ class Card(MDCard):
             line_height=1.4,
             size_hint=(1, 1)
         )
-        label.font_size = 18
+        label.font_size = '18sp'
         label.size = label.texture_size
 
         self.add_widget(label)

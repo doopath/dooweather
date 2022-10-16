@@ -4,8 +4,8 @@
 from typing import Any, Callable
 from kivy.core.window import Window
 from kivymd.uix.menu import MDDropdownMenu
-from modules.cache import Cache
-from modules import constants
+from dooweather.modules.cache import Cache
+from dooweather.modules import constants
 
 
 class CitiesDropdownMenu(MDDropdownMenu):
@@ -19,7 +19,7 @@ class CitiesDropdownMenu(MDDropdownMenu):
         self.items = []
         self.position = 'center'
         self.width_mult = 4
-        self.max_height = Window.size[1] / 3 // 50 * 50
+        self.height = Window.size[1] / 5 // 50 * 50
 
     def _get_cached_cities(self) -> list[str]:
         try:
@@ -53,9 +53,9 @@ class CitiesDropdownMenu(MDDropdownMenu):
         if city == self._remove_all_button_text:
             self._clear_all_items()
         else:
+            self.dismiss()
             self._update_weather(city)
 
-        self.dismiss()
 
     def open(self) -> None:
         self._set_items()

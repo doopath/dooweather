@@ -1,16 +1,20 @@
-.buildozer/
+kivy_venv/
+
 .idea/
 .vscode/
 .fleet
-__pycache__/
-*/__pycache__/
-bin/
-kivy_venv/
-resources/
-cache.json
 run.json
 settings.json
+
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+
+resources/
+.buildozer/
+bin/
 build/
 DooWeather.spec
 dist/
 
+dooweather/cache.json

@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: DooWeather
+Version: 1.0
+Summary: Crossplatform weather app written in python
+Author-email: Michael Nikishov <doopath@gmail.com>
+Project-URL: Homepage, https://github.com/doopath/dooweather
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE

@@ -5,8 +5,8 @@
 import os
 import json
 from typing import Any, Callable
-from modules.constants import APP_DIR
-from modules.exceptions import CacheSessionIsNotStartedException, CacheSessionIsAlreadyStartedException
+from dooweather.modules.constants import APP_DIR
+from dooweather.modules.exceptions import CacheSessionIsNotStartedException, CacheSessionIsAlreadyStartedException
 
 
 def check_if_opened(f: Callable) -> Callable:
@@ -70,7 +70,7 @@ class Cache:
     """
     def __init__(self):
         self._cache_dir = APP_DIR
-        self._cache_file = "cache.json"
+        self._cache_file = "dooweather-cache.json"
         self._local_cache = {}
         self.is_opened = False
         self._initialize_cache()

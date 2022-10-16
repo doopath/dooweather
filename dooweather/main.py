@@ -8,10 +8,10 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 from kivymd.uix.gridlayout import MDGridLayout
 
-from modules.cache import Cache
-from modules.container import Container
-from modules.constants import LOCALES
-from modules import constants
+from dooweather.modules.cache import Cache
+from dooweather.modules.container import Container
+from dooweather.modules.constants import LOCALES
+from dooweather.modules import constants
 
 
 def set_window_size():

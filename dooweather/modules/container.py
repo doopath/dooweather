@@ -3,20 +3,17 @@ import asyncio
 
 from kivy.core.window import Window
 
-from modules.daily_forecast.daily_forecasts_list import DailyForecastsList
-from modules.forecast import Forecast
-from modules.cities_dropdown_menu import CitiesDropdownMenu
-from modules.cache import Cache
-from modules import constants
-from modules.locales_dropdown_menu import LocalesDropdownMenu
+from dooweather.modules.daily_forecast.daily_forecasts_list import DailyForecastsList
+from dooweather.modules.forecast import Forecast
+from dooweather.modules.cities_dropdown_menu import CitiesDropdownMenu
+from dooweather.modules.cache import Cache
+from dooweather.modules import constants
+from dooweather.modules.locales_dropdown_menu import LocalesDropdownMenu
 
 from kivymd.uix.gridlayout import MDGridLayout
-from kivymd.uix.widget import MDWidget
 from kivymd.uix.label import MDLabel
 from kivymd.uix.stacklayout import MDStackLayout
 from kivymd.uix.button import MDRoundFlatButton
-
-from typing import Any
 
 
 class Container(MDGridLayout):
@@ -76,11 +73,11 @@ class Container(MDGridLayout):
         except KeyError:
             pass
 
-    async def _update_future_forecasts(self) -> None:
+    def _update_future_forecasts(self) -> None:
         self._clean_future_forecasts()
         index = len(self.forecast_content.children) - 1
 
-        async for forecast in self._forecast.beautified_future:
+        for forecast in self._forecast.beautified_future():
             card = DailyForecastsList.create_daily_forecast(forecast)
             self._future_forecasts.append(card)
             self.forecast_content.add_widget(card, index)
@@ -101,7 +98,7 @@ class Container(MDGridLayout):
 
         async def inner():
             await self._set_weather()
-            await asyncio.gather(asyncio.create_task(self._update_future_forecasts()))
+            self._update_future_forecasts()
 
         asyncio.run(inner())
 
@@ -110,13 +107,12 @@ class Container(MDGridLayout):
         Uses as an event handler.
         Is not intended for using by other modules.
         """
-        async def inner():
-            if self._forecast:
-                self._forecast.switch_temperature_mode()
-                self._update_current_forecast()
-                await self._update_future_forecasts()
+        try:
+            self._forecast.switch_temperature_mode()
+            self._update_current_forecast()
+            self._update_future_forecasts()
+        except AttributeError: ...
 
-        asyncio.run(inner())
 
     def locale_switch(self) -> None:
         """

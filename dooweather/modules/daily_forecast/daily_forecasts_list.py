@@ -1,7 +1,7 @@
 """
     Module that provides a class to create a list of daily forecasts.
 """
-from modules.daily_forecast.daily_forecast_card import Card
+from dooweather.modules.daily_forecast.daily_forecast_card import Card
 from kivymd.uix.card import MDCard
 
 

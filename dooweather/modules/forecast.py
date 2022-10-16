@@ -1,9 +1,11 @@
+import types
+from typing import Generator
+
 import python_weather.forecast
 from python_weather.client import Weather
-from modules.exceptions import (InvalidTemperatureFormatException)
-from typing import AsyncGenerator
-from modules.cache import Cache
-from modules import constants
+from dooweather.modules.exceptions import (InvalidTemperatureFormatException)
+from dooweather.modules.cache import Cache
+from dooweather.modules import constants
 
 
 def fahrenheit_to_celsius(deg: int) -> int:
@@ -151,8 +153,7 @@ class Forecast:
 
         return self._beautify_main_forecast(self._current_forecast)
 
-    @property
-    async def beautified_future(self) -> AsyncGenerator:
+    def beautified_future(self) -> Generator[str, None, None]:
         """
         Formatted feature forecast info.
         """

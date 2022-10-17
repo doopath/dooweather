@@ -64,8 +64,9 @@ class MainApp(MDApp):
     def on_stop(self) -> None:
         self._cache.save_session()
 
-    def on_pause(self) -> None:
+    def on_pause(self) -> bool:
         self._cache.save_session()
+        return True
 
     def _set_locale(self) -> None:
         try:

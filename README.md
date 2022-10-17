@@ -31,7 +31,9 @@ If you want to build the app from sources then you need to install _dependencies
 There are three prebuilds actually: for Android, Windows and Linux.
 
 ### Android
-If you want to install **DooWeather** on your Android phone then you need to just downloan .apk file from last [release](https://github.com/doopath/dooweather/releases), find it in your phone's file manager and install.
+If you want to install **DooWeather** on your Android phone then you need to just downloan .apk file from last [release](https://github.com/doopath/dooweather/releases), find it in your phone's file manager, then install.
+![no image](https://raw.githubusercontent.com/doopath/dooweather/master/images/dooweather_android_installation_sample.png)
+
 
 ### Linux and Windows
 For Linux or Windows installation you need to download a .whl file from last [release](https://github.com/doopath/dooweather/releases) and install it with _pip install_ command.

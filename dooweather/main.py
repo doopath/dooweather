@@ -10,7 +10,7 @@ from kivymd.uix.gridlayout import MDGridLayout
 
 try:
     """
-    Imports for runnting the app on Android.
+    Imports for running the app on Android.
     There the app is located in /smth/org.doopath/app
     and the buildozer tool gathers all the files from the
     dooweather directory to the app directory. So you need
@@ -72,7 +72,8 @@ class MainApp(MDApp):
         try:
             locale_key = self._cache.get_value('LOCALE')
             constants.LOCALE = LOCALES[locale_key]
-        except KeyError: pass
+        except KeyError:
+            pass
 
 
 def main() -> None:
@@ -81,4 +82,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

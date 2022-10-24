@@ -27,6 +27,7 @@ LOCALES = {
         'GET_WEATHER_BUTTON': 'Get forecast',
         'LOCALE_BUTTON': 'Locale',
         'REMOVE_ALL': 'Remove all',
+        'NO_CONNECTION_MESSAGE': 'No internet connection',
     },
     'RU': {  # Russian
         'DATE': 'Дата',
@@ -48,6 +49,7 @@ LOCALES = {
         'GET_WEATHER_BUTTON': 'Получить прогноз',
         'LOCALE_BUTTON': 'Язык',
         'REMOVE_ALL': 'Удалить все',
+        'NO_CONNECTION_MESSAGE': 'Отсутствует интернет-соединение',
     }
 }
 LOCALE = LOCALES[DEFAULT_LOCALE]

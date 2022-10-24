@@ -44,7 +44,8 @@ def set_window_size() -> None:
 class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.logo = None
+        self.icon = ''
+        self.title = ''
         self._cache = cache.Cache()
 
     def build(self) -> Widget:

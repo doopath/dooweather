@@ -1,3 +1,4 @@
+from aiohttp.client_exceptions import ClientConnectionError
 import python_weather
 import asyncio
 
@@ -97,10 +98,14 @@ class Container(MDGridLayout):
         self.weather_info_label.text = "Loading..."
 
         async def inner():
-            await self._set_weather()
-            self._update_future_forecasts()
+            try:
+                await self._set_weather()
+                self._update_future_forecasts()
+            except ClientConnectionError as exc:
+                self.weather_info_label.text = self.locale['NO_CONNECTION_MESSAGE']
 
         asyncio.run(inner())
+
 
     def temperature_switch(self) -> None:
         """

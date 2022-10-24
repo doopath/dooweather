@@ -1,7 +1,8 @@
 import types
+import python_weather.forecast
+
 from typing import Generator
 
-import python_weather.forecast
 from python_weather.client import Weather
 from .exceptions import (InvalidTemperatureFormatException)
 from .cache import Cache

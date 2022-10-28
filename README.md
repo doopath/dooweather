@@ -24,8 +24,8 @@ This project is not depends on a platform so you can build it for anything where
 
 ## Requirements
 You need to have python3.9 or newer installed on your machine (only for desktop OS)
-If you want to build the app from sources then you need to install _dependencies.txt_:
-```python -m pip install -r dependencies.txt```
+If you want to build the app from sources then you need to install _requirements.txt_:
+```python -m pip install -r requirements.txt```
 
 ## Installation
 There are three prebuilds actually: for Android, Windows and Linux.
@@ -41,5 +41,5 @@ For Linux or Windows installation you need to download a .whl file from last [re
 Latest release installation sample for Linux:
 ```bash
 wget 'https://github.com/doopath/dooweather/releases/download/1.0/DooWeather-1.0-python3.9.whl'
-python -m pip install DooWeather-1.0-python3.9.whl 
+python -m pip install DooWeather-1.0-python3.9.whl
 ```

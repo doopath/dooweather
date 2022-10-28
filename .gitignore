@@ -1,4 +1,4 @@
-kivy_venv/
+env/
 
 .idea/
 .vscode/

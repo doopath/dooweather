@@ -37,7 +37,7 @@ version = 1.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.9.9,aiohttp==v3.7.3,aiosignal==v1.2.0,appdirs==v1.4.4,async-timeout==v3.0,attrs==v22.1.0,certifi==v2022.9.24,charset-normalizer==v2.1.1,colorama==v0.4.5,Cython==v0.29.32,distlib==v0.3.6,docutils==v0.19,filelock==v3.8.0,frozenlist==v1.3.1,idna==v3.4,importlib-metadata==v5.0.0,Jinja2==v3.1.2,Kivy==v2.1.0,Kivy-examples==v2.1.0,Kivy-Garden==v0.1.5,kivymd==v1.0.2,MarkupSafe==v2.1.1,multidict==v6.0.2,pep517==v0.6.0,pexpect==v4.8.0,platformdirs==v2.5.2,ptyprocess==v0.7.0,Pillow,Pygments==v2.13.0,python-weather==v0.4.2,pytoml==v0.1.21,requests==v2.28.1,sh==v1.14.3,toml==v0.10.2,urllib3==v1.26.12,virtualenv==v20.16.5,yarl==v1.8.1,zipp==v3.8.1,typing-extensions,chardet,android.permissions
+requirements = python3==3.9.9,aiohttp==v3.7.3,aiosignal==v1.2.0,appdirs==v1.4.4,async-timeout==v3.0,attrs==v22.1.0,certifi==v2022.9.24,charset-normalizer==v2.1.1,colorama==v0.4.5,Cython==v0.29.32,distlib==v0.3.6,docutils==v0.19,filelock==v3.8.0,frozenlist==v1.3.1,idna==v3.4,importlib-metadata==v5.0.0,Jinja2==v3.1.2,Kivy==v2.1.0,Kivy-examples==v2.1.0,Kivy-Garden==v0.1.5,kivymd==v1.0.2,MarkupSafe==v2.1.1,multidict==v6.0.2,pep517==v0.6.0,pexpect==v4.8.0,platformdirs==v2.5.2,ptyprocess==v0.7.0,Pillow,Pygments==v2.13.0,python-weather==v0.4.2,pytoml==v0.1.21,requests==v2.28.1,sh==v1.14.3,toml==v0.10.2,urllib3==v1.26.12,virtualenv==v20.16.5,yarl==v1.8.1,zipp==v3.8.1,typing-extensions,chardet,darkdetect,android.permissions
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -225,7 +225,7 @@ android.ouya.icon.filename = %(source.dir)s/../images/weather_icon.png
 # Don't forget to add the WAKE_LOCK permission if you set this to True
 #android.wakelock = False
 
-# (list) Android application meta-data to set (key=value format)
+# (list) Android application mcs-data to set (key=value format)
 #android.meta_data =
 
 # (list) Android library project to add (will be added in the

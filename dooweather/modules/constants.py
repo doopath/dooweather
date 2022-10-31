@@ -53,3 +53,17 @@ LOCALES = {
     }
 }
 LOCALE = LOCALES[DEFAULT_LOCALE]
+COLORSCHEMES = {
+    'Dark': {
+        'BUTTON_TEXT_FG': (.92, .92, .92, 1),
+        'FORECAST_TEXT_FG': (.92, .92, .92, 1),
+        'TEXT_INPUT_TEXT_COLOR': (.92, .92, .92, 1),
+        'FORECAST_CARD_BG': (.15, .15, .15, 1),
+    },
+    'Light': {
+        'BUTTON_TEXT_FG': (.15, .15, .15, 1),
+        'FORECAST_TEXT_FG': (.15, .15, .15, 1),
+        'TEXT_INPUT_TEXT_COLOR': (.15, .15, .15, 1),
+        'FORECAST_CARD_BG': (.92, .92, .92, 1),
+    }
+}

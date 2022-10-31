@@ -1,12 +1,15 @@
 """
     Weather app written in python.
 """
+import darkdetect
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from kivy.utils import platform
 
 from kivymd.app import MDApp
 from kivymd.uix.gridlayout import MDGridLayout
+
+from dooweather.modules.colorscheme import Colorscheme
 
 try:
     """
@@ -38,7 +41,7 @@ def set_window_size() -> None:
     if platform == 'android' or platform == 'ios':
         return
     else:
-        Window.size = (800, 900)
+        Window.size = (650, 800)
 
 
 class MainApp(MDApp):
@@ -49,16 +52,17 @@ class MainApp(MDApp):
         self._cache = cache.Cache()
 
     def build(self) -> Widget:
+        self.icon = 'images/weather_icon.png'
+        self.title = 'DooWeather'
+        self.theme_cls.theme_style = darkdetect.theme()
+        self.theme_cls.primary_palette = "Red"
         self._set_locale()
         set_window_size()
 
         Window.softinput_mode = 'pan'
-        container: MDGridLayout = Container(self._cache)
-
-        self.icon = 'images/weather_icon.png'
-        self.title = 'DooWeather'
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Red"
+        container: MDGridLayout = Container(
+            self._cache,
+            Colorscheme(self.theme_cls.theme_style))
 
         return container
 

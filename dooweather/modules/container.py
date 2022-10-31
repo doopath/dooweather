@@ -4,6 +4,7 @@ import asyncio
 
 from kivy.core.window import Window
 
+from .colorscheme import Colorscheme
 from .daily_forecast.daily_forecasts_list import DailyForecastsList
 from .forecast import Forecast
 from .cities_dropdown_menu import CitiesDropdownMenu
@@ -18,9 +19,10 @@ from kivymd.uix.button import MDRoundFlatButton
 
 
 class Container(MDGridLayout):
-    def __init__(self, cache: Cache, *args, **kwargs):
+    def __init__(self, cache: Cache, colorscheme: Colorscheme, *args, **kwargs):
         self.locale = constants.LOCALE
         self.window = Window
+        self.colorscheme = colorscheme
 
         self.forecast_content: MDStackLayout
         self.input_field: MDLabel
@@ -79,7 +81,7 @@ class Container(MDGridLayout):
         index = len(self.forecast_content.children) - 1
 
         for forecast in self._forecast.beautified_future():
-            card = DailyForecastsList.create_daily_forecast(forecast)
+            card = DailyForecastsList.create_daily_forecast(forecast, self.colorscheme)
             self._future_forecasts.append(card)
             self.forecast_content.add_widget(card, index)
             self.forecast_content.height += card.height + self.forecast_content.spacing[1]
@@ -106,7 +108,6 @@ class Container(MDGridLayout):
 
         asyncio.run(inner())
 
-
     def temperature_switch(self) -> None:
         """
         Uses as an event handler.
@@ -117,7 +118,6 @@ class Container(MDGridLayout):
             self._update_current_forecast()
             self._update_future_forecasts()
         except AttributeError: ...
-
 
     def locale_switch(self) -> None:
         """

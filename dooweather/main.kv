@@ -1,5 +1,8 @@
 #:kivy 2.0.0
 
+<MDCard>:
+    md_bd_color: .9, .9, .9, 1
+
 <Container>:
     padding: 50
     rows: 3
@@ -36,7 +39,7 @@
                 padding: [root.window.height / 40, 0]
                 height: (forecast_label.height + weather_info.height) + root.window.height / 40
                 width: forecast_content.width
-                md_bg_color: .15,.15,.15,1
+                md_bg_color: root.colorscheme.FORECAST_CARD_BG
 
                 MDBoxLayout:
                     id: card_box
@@ -55,6 +58,7 @@
                         id: weather_info
                         font_size: '18sp'
                         text: root.locale['ENTERED_NO_CITY']
+                        text_color: root.colorscheme.FORECAST_TEXT_FG
                         size_hint_y: None
                         padding: [root.height / 40, root.height / 40]
                         line_height: 1.4
@@ -81,7 +85,7 @@
                         root.temperature_switch()
                     text: 'F/C'
                     font_size: '20sp'
-                    text_color: 'white'
+                    text_color: root.colorscheme.BUTTON_TEXT_FG
                     line_width: 1.5
 
                 MDRoundFlatButton:
@@ -90,7 +94,7 @@
                         root.locale_switch()
                     text: root.locale['LOCALE_BUTTON']
                     font_size: '20sp'
-                    text_color: 'white'
+                    text_color: root.colorscheme.BUTTON_TEXT_FG
                     line_width: 1.5
 
     MDBoxLayout:
@@ -101,13 +105,13 @@
         MDTextField:
             id: input
             hint_text: root.locale['ENTER_CITY']
-            text_color_focus: 'white'
+            text_color_focus: root.colorscheme.TEXT_INPUT_TEXT_COLOR
 
         MDRoundFlatButton:
             id: choose_city
             text: root.locale['SELECT_BUTTON']
             font_size: '20sp'
-            text_color: 'white'
+            text_color: root.colorscheme.BUTTON_TEXT_FG
             line_width: 1.5
             on_release:
                 root.show_dropdown_menu()
@@ -116,7 +120,9 @@
         size_hint: 1, None
         text: root.locale['GET_WEATHER_BUTTON']
         font_size: '20sp'
-        text_color: 'white'
+        text_color: root.colorscheme.BUTTON_TEXT_FG
         line_width: 1.5
         on_press:
             root.set_weather()
+
+

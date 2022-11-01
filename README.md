@@ -40,6 +40,7 @@ For Linux or Windows installation you need to download a .whl file from last [re
 
 Latest release installation sample for Linux:
 ```bash
-wget 'https://github.com/doopath/dooweather/releases/download/1.0/DooWeather-1.0-python3.9.whl'
-python -m pip install DooWeather-1.0-python3.9.whl
+wget 'https://github.com/doopath/dooweather/releases/download/1.0/DooWeather-1.0-py3-none-any.whl'
+python -m pip install DooWeather-1.0-py3-none-any.whl
+rm DooWeather-1.0-py3-none-any.whl
 ```

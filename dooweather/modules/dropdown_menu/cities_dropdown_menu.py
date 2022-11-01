@@ -9,11 +9,10 @@ from .base_dropdown_menu import BaseDropdownMenu
 
 class CitiesDropdownMenu(BaseDropdownMenu):
     def __init__(self, update: Callable, cache: Cache, *args, **kwargs):
-        super().__init__(*args, {**kwargs, 'update': update})
+        super().__init__(update=update, *args, **kwargs)
 
         self._cache = cache
         self._remove_all_button_text = constants.LOCALE['REMOVE_ALL']
-        self._update_weather = update
 
     def _get_cached_cities(self) -> list[str]:
         try:
@@ -41,4 +40,4 @@ class CitiesDropdownMenu(BaseDropdownMenu):
             self._clear_all_items()
         else:
             self.dismiss()
-            self._update_weather(city)
+            self._update(city)

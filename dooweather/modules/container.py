@@ -80,8 +80,7 @@ class Container(MDGridLayout):
 
     def _set_theme(self, theme: str) -> None:
         try:
-            new_theme = constants.COLORSCHEMES[theme]
-            self.colorscheme = new_theme
+            self.colorscheme = Colorscheme(theme)
             self._cache.set_value('THEME', theme)
         except KeyError:
             pass

@@ -1,4 +1,4 @@
-#:kivy 2.0.0
+#:kivy 2.1.0
 
 <MDCard>:
     md_bd_color: .9, .9, .9, 1
@@ -17,6 +17,7 @@
     scroll_view: scroll_view
     switch_temperature_mode_button_anchor: switch_temperature_mode_button_anchor
     switch_locale_button: switch_locale_button
+    switch_theme_button: switch_theme_button
 
     ScrollView:
         id: scroll_view
@@ -70,7 +71,7 @@
                 anchor_x: 'right'
                 anchor_y: 'top'
                 size_hint_y: 1
-                cols: 3
+                cols: 4
                 rows: 1
                 spacing: 20
                 padding: [10, 0]
@@ -97,6 +98,15 @@
                     text_color: root.colorscheme.BUTTON_TEXT_FG
                     line_width: 1.5
 
+                MDRoundFlatButton:
+                    id: switch_theme_button
+                    on_release:
+                        root.theme_switch()
+                    text: root.locale['THEME_BUTTON_TEXT']
+                    font_size: '20sp'
+                    text_color: root.colorscheme.BUTTON_TEXT_FG
+                    line_width: 1.5
+
     MDBoxLayout:
         spacing: 30
         orientation: 'horizontal'
@@ -114,7 +124,7 @@
             text_color: root.colorscheme.BUTTON_TEXT_FG
             line_width: 1.5
             on_release:
-                root.show_dropdown_menu()
+                root.city_select()
 
     MDRoundFlatButton:
         size_hint: 1, None

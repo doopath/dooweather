@@ -5,12 +5,13 @@ import asyncio
 from kivy.core.window import Window
 
 from .colorscheme import Colorscheme
-from .daily_forecast.daily_forecasts_list import DailyForecastsList
 from .forecast import Forecast
-from .cities_dropdown_menu import CitiesDropdownMenu
+from .dropdown_menu.cities_dropdown_menu import CitiesDropdownMenu
+from .dropdown_menu.locales_dropdown_menu import LocalesDropdownMenu
+from .dropdown_menu.themes_dropdown_menu import ThemesDropdownMenu
 from .cache import Cache
 from . import constants
-from .locales_dropdown_menu import LocalesDropdownMenu
+from .daily_forecast.daily_forecasts_list import DailyForecastsList
 
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.label import MDLabel
@@ -28,6 +29,7 @@ class Container(MDGridLayout):
         self.input_field: MDLabel
         self.weather_info_label: MDLabel
         self.switch_locale_button: MDRoundFlatButton
+        self.switch_theme_button: MDRoundFlatButton
         self.choose_city_button: MDRoundFlatButton
 
         super().__init__(*args, **kwargs)
@@ -76,6 +78,14 @@ class Container(MDGridLayout):
         except KeyError:
             pass
 
+    def _set_theme(self, theme: str) -> None:
+        try:
+            new_theme = constants.COLORSCHEMES[theme]
+            self.colorscheme = new_theme
+            self._cache.set_value('THEME', theme)
+        except KeyError:
+            pass
+
     def _update_future_forecasts(self) -> None:
         self._clean_future_forecasts()
         index = len(self.forecast_content.children) - 1
@@ -85,12 +95,6 @@ class Container(MDGridLayout):
             self._future_forecasts.append(card)
             self.forecast_content.add_widget(card, index)
             self.forecast_content.height += card.height + self.forecast_content.spacing[1]
-
-    def show_dropdown_menu(self, *_) -> None:
-        dropdown_menu = CitiesDropdownMenu(
-            self._set_location_set_weather, self._cache)
-        dropdown_menu.caller = self.choose_city_button
-        dropdown_menu.open()
 
     def set_weather(self) -> None:
         """
@@ -103,7 +107,7 @@ class Container(MDGridLayout):
             try:
                 await self._set_weather()
                 self._update_future_forecasts()
-            except ClientConnectionError as exc:
+            except ClientConnectionError:
                 self.weather_info_label.text = self.locale['NO_CONNECTION_MESSAGE']
 
         asyncio.run(inner())
@@ -124,7 +128,23 @@ class Container(MDGridLayout):
         Uses as an event handler.
         Is not intended for using by other modules.
         """
-        dropdown_menu = LocalesDropdownMenu(self._set_locale)
+        dropdown_menu = LocalesDropdownMenu(update=self._set_locale)
         dropdown_menu.caller = self.switch_locale_button
+        dropdown_menu.open()
+
+    def theme_switch(self) -> None:
+        """
+        Uses as an event handler.
+        Is not intended for using by other modules.
+        """
+        dropdown_menu = ThemesDropdownMenu(update=self._set_theme)
+        dropdown_menu.caller = self.switch_theme_button
+        dropdown_menu.open()
+
+    def city_select(self, *_) -> None:
+        dropdown_menu = CitiesDropdownMenu(
+            update=self._set_location_set_weather,
+            cache=self._cache)
+        dropdown_menu.caller = self.choose_city_button
         dropdown_menu.open()
 

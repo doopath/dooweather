@@ -9,7 +9,6 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 from kivymd.uix.gridlayout import MDGridLayout
 
-from dooweather.modules.colorscheme import Colorscheme
 
 try:
     """
@@ -22,6 +21,7 @@ try:
     from modules import cache
     from modules.container import Container
     from modules.constants import LOCALES
+    from modules.colorscheme import Colorscheme
     from modules import constants
 except ModuleNotFoundError:
     """
@@ -31,6 +31,7 @@ except ModuleNotFoundError:
     and PYTHONPATH will contain the $HOME/.local/lib/pythonX.X/site-packages
     directory so you need to set module (dooweather) name.
     """
+    from dooweather.modules.colorscheme import Colorscheme
     from dooweather.modules import cache
     from dooweather.modules.container import Container
     from dooweather.modules.constants import LOCALES
@@ -50,13 +51,14 @@ class MainApp(MDApp):
         self.icon = ''
         self.title = ''
         self._cache = cache.Cache()
+        self.theme_cls.theme_style = 'Light'
 
     def build(self) -> Widget:
         self.icon = 'images/weather_icon.png'
         self.title = 'DooWeather'
-        self.theme_cls.theme_style = darkdetect.theme()
         self.theme_cls.primary_palette = "Red"
         self._set_locale()
+        self._set_theme()
         set_window_size()
 
         Window.softinput_mode = 'pan'
@@ -77,6 +79,12 @@ class MainApp(MDApp):
         try:
             locale_key = self._cache.get_value('LOCALE')
             constants.LOCALE = LOCALES[locale_key]
+        except KeyError:
+            pass
+
+    def _set_theme(self) -> None:
+        try:
+            self.theme_cls.theme_style = self._cache.get_value('THEME')
         except KeyError:
             pass
 

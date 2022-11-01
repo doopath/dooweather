@@ -1,25 +1,19 @@
 """
     Dropdown menu for selecting a city.
 """
-from typing import Any, Callable
-from kivy.core.window import Window
-from kivymd.uix.menu import MDDropdownMenu
-from .cache import Cache
-from . import constants
+from typing import Callable
+from ..cache import Cache
+from .. import constants
+from .base_dropdown_menu import BaseDropdownMenu
 
 
-class CitiesDropdownMenu(MDDropdownMenu):
-    def __init__(self, update_location: Callable, cache: Cache, **kwargs):
-        super().__init__(**kwargs)
+class CitiesDropdownMenu(BaseDropdownMenu):
+    def __init__(self, update: Callable, cache: Cache, *args, **kwargs):
+        super().__init__(*args, {**kwargs, 'update': update})
 
         self._cache = cache
         self._remove_all_button_text = constants.LOCALE['REMOVE_ALL']
-        self._update_weather = update_location
-
-        self.items = []
-        self.position = 'center'
-        self.width_mult = 4
-        self.height = Window.size[1] / 5 // 50 * 50
+        self._update_weather = update
 
     def _get_cached_cities(self) -> list[str]:
         try:
@@ -27,13 +21,6 @@ class CitiesDropdownMenu(MDDropdownMenu):
         except KeyError:
             self._cache.set_value('CITIES', [])
             return []
-
-    def _create_item(self, city: str) -> Any:
-        return {
-            'text': city,
-            'viewclass': 'OneLineListItem',
-            'on_release': lambda: self._on_release(city)
-        }
 
     def _clear_all_items(self) -> None:
         self._cache.set_value('CITIES', [])
@@ -55,9 +42,3 @@ class CitiesDropdownMenu(MDDropdownMenu):
         else:
             self.dismiss()
             self._update_weather(city)
-
-
-    def open(self) -> None:
-        self._set_items()
-        super().open()
-

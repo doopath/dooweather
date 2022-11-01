@@ -2,7 +2,7 @@ from .constants import COLORSCHEMES
 
 
 class Colorscheme:
-    def __init__(self, mode: str = 'Dark'):
+    def __init__(self, mode: str):
         self.BUTTON_TEXT_FG = None
         self.FORECAST_TEXT_FG = None
         self.TEXT_INPUT_TEXT_COLOR = None

@@ -28,6 +28,7 @@ LOCALES = {
         'LOCALE_BUTTON': 'Locale',
         'REMOVE_ALL': 'Remove all',
         'NO_CONNECTION_MESSAGE': 'No internet connection',
+        'THEME_BUTTON_TEXT': 'THEME',
     },
     'RU': {  # Russian
         'DATE': 'Дата',
@@ -50,6 +51,7 @@ LOCALES = {
         'LOCALE_BUTTON': 'Язык',
         'REMOVE_ALL': 'Удалить все',
         'NO_CONNECTION_MESSAGE': 'Отсутствует интернет-соединение',
+        'THEME_BUTTON_TEXT': 'Тема',
     }
 }
 LOCALE = LOCALES[DEFAULT_LOCALE]

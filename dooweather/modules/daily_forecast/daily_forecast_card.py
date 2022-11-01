@@ -3,7 +3,7 @@ from kivy.metrics import dp
 from kivymd.uix.card import MDCard
 from kivymd.uix.label import MDLabel
 
-from dooweather.modules.colorscheme import Colorscheme
+from ..colorscheme import Colorscheme
 
 
 class Card(MDCard):

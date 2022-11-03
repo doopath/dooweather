@@ -39,10 +39,12 @@ except ModuleNotFoundError:
 
 
 def set_window_size() -> None:
-    if platform == 'android' or platform == 'ios':
-        return
-    else:
-        Window.size = (650, 800)
+    try:
+        if platform == 'android' or platform == 'ios':
+            return
+        else:
+            Window.size = (650, 800)
+    except Exception: ...
 
 
 class MainApp(MDApp):

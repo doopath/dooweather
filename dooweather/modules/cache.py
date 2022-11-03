@@ -75,6 +75,7 @@ class Cache:
         self.is_opened = False
         self._initialize_cache()
         self._initialize_local_cache()
+        ...
 
     @property
     def cache_file_path(self) -> str:
@@ -99,7 +100,7 @@ class Cache:
     @check_if_opened
     def _get_cache(self) -> object:
         with open(self.cache_file_path, 'r') as cache_file:
-            return json.load(cache_file)
+            return json.loads(cache_file.read())
 
     @check_if_opened
     def _initialize_local_cache(self) -> None:

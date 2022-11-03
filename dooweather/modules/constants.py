@@ -20,6 +20,7 @@ LOCALES = {
         'PRESSURE': 'Pressure',
 
         'INVALID_LOCATION': 'Invalid location',
+        'LOADING_MESSAGE': 'Loading',
         'FORECAST_NOW': 'Forecast (now)',
         'ENTERED_NO_CITY': "You didn't enter a city yet!",
         'ENTER_CITY': 'Enter your city',
@@ -43,6 +44,7 @@ LOCALES = {
         'PRESSURE': 'Давление',
 
         'INVALID_LOCATION': 'Неверное местоположение',
+        'LOADING_MESSAGE': 'Загрузка',
         'FORECAST_NOW': 'Прогноз на сегодня',
         'ENTERED_NO_CITY': "Вы еще не ввели город!",
         'ENTER_CITY': 'Введите свой город',

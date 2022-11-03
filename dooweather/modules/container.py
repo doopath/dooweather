@@ -45,16 +45,13 @@ class Container(MDGridLayout):
             + Window.height / 2.4
 
     async def _set_weather(self) -> None:
-        async def inner():
-            async with python_weather.Client(format=python_weather.IMPERIAL) as client:
-                user_input = self.input_field.text
-                user_input = user_input if user_input != '' else '0'
-                weather = await client.get(user_input)
-                forecast = Forecast(weather, user_input, self._cache)
-                self._forecast = forecast
-                self._update_current_forecast()
-
-        await inner()
+        async with python_weather.Client(format=python_weather.IMPERIAL) as client:
+            user_input = self.input_field.text
+            user_input = user_input if user_input != '' else '0'
+            weather = await client.get(user_input)
+            forecast = Forecast(weather, user_input, self._cache)
+            self._forecast = forecast
+            self._update_current_forecast()
 
     def _set_location_set_weather(self, city: str) -> None:
         self.input_field.text = city
@@ -95,15 +92,17 @@ class Container(MDGridLayout):
             self.forecast_content.add_widget(card, index)
             self.forecast_content.height += card.height + self.forecast_content.spacing[1]
 
+    def _set_loading_message(self) -> None:
+        self.weather_info_label.text = self.locale['LOADING_MESSAGE']
+
     def set_weather(self) -> None:
         """
         Uses as an event handler.
         Is not intended for using by other modules.
         """
-        self.weather_info_label.text = "Loading..."
-
         async def inner():
             try:
+                self._set_loading_message()
                 await self._set_weather()
                 self._update_future_forecasts()
             except ClientConnectionError:
@@ -118,6 +117,7 @@ class Container(MDGridLayout):
         """
         try:
             self._forecast.switch_temperature_mode()
+            self._set_loading_message()
             self._update_current_forecast()
             self._update_future_forecasts()
         except AttributeError: ...
